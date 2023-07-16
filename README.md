@@ -1,5 +1,7 @@
 # 🎶 이근혁 영상처리 프로젝트
 
+참고 : https://docs.opencv.org/3.4/d6/d00/tutorial_py_root.html
+
 # ✨ Project Information
 
 ### | **준비 기간**
