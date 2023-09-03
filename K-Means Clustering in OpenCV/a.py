@@ -1,24 +1,18 @@
 from __future__ import print_function
 import cv2 as cv
 import argparse
+
 def detectAndDisplay(frame):
     frame_gray = cv.cvtColor(frame, cv.COLOR_BGR2GRAY)
     frame_gray = cv.equalizeHist(frame_gray)
     #-- Detect faces
     faces = face_cascade.detectMultiScale(frame_gray)
     for (x,y,w,h) in faces:
-        center = (x, y)
-        end = (x+w,y+h)
-        frame = cv.rectangle(frame, center, end,(0, 0, 0), -100)
-        faceROI = frame_gray[y:y+h,x:x+w]
-    
-        #-- In each face, detect eyes
-        eyes = eyes_cascade.detectMultiScale(faceROI)
-        for (x2,y2,w2,h2) in eyes:  
-            eye_center = (x + x2 + w2//2, y + y2 + h2//2)
-            radius = int(round((w2 + h2)*0.25))
-    
-        
+        faceROI = frame[y:y+h,x:x+w]
+        # frame = cv.rectangle(frame, (x, y), (x+w, y+h), (0,0,0), -1)
+        # faceROI를 모자이크처리
+        faceROI = cv.GaussianBlur(faceROI, (0, 0), 20)
+        frame[y:y+h,x:x+w] = faceROI
     
     cv.imshow('Capture - Face detection', frame)
 
